@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private float objectHeight;
     private float objectWidth;
     private Vector3 position;
+    public float rotateSpeed = 350.0f;
     public float speed = 400.0f;
     public float tilt = 1.0f;
 
@@ -34,7 +35,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        //LookAtMouse();
+
         PhysicsMovement();
+
+        //TankControls();
 
         Tilt();
     }
@@ -66,12 +71,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void LookAtMouse()
+    {
+        float moveVertical = Input.GetAxis("Vertical");
+        var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+        GetComponent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
+    }
+
     private void PhysicsMovement()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
         GetComponent<Rigidbody>().velocity = movement * speed * Time.fixedDeltaTime;
+    }
+
+    private void TankControls()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        transform.Rotate(Vector3.forward * moveHorizontal * rotateSpeed * Time.fixedDeltaTime * -1);
+        GetComponent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
     }
 
     private void Tilt()
