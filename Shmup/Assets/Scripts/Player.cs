@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Camera MainCamera;
     private float objectHeight;
     private float objectWidth;
+    private GameObject playerModel;
     private Vector3 position;
     public float rotateSpeed = 350.0f;
     public float speed = 400.0f;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        playerModel = GameObject.Find("craft_speederA");
 
         SetBoundary();
     }
@@ -104,8 +106,8 @@ public class Player : MonoBehaviour
     private void SetBoundary()
     {
         boundary = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        objectWidth = transform.GetComponent<MeshRenderer>().bounds.extents.x;
-        objectHeight = transform.GetComponent<MeshRenderer>().bounds.extents.y;
+        objectWidth = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.x;
+        objectHeight = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.y;
     }
 
     //private void Boundary()
