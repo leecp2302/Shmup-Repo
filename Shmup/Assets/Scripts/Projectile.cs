@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
+    public float lifetime = 1.0f;
     private Rigidbody rigidBody;
     public float speed = 2000.0f;
 
@@ -11,6 +12,11 @@ public class Move : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        Destroy(this.gameObject, lifetime);
     }
 
     void FixedUpdate()
