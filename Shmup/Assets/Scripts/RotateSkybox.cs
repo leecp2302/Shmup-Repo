@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RotateSkybox : MonoBehaviour
 {
-    private Camera SkyCamera;
     public Vector3 skyboxRotation;
+    private Camera SkyCamera;
 
     // Start is called before the first frame update
     void Start()

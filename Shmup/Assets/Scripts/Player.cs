@@ -5,13 +5,17 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Vector2 boundary;
+    public float fireRate = 0.1f;
     private Camera MainCamera;
+    private float nextFire;
     private float objectHeight;
     private float objectWidth;
     private GameObject playerModel;
     private Vector3 position;
+    private GameObject projectile;
+    private Transform projectileSpawnPosition;
     public float rotateSpeed = 350.0f;
-    public float speed = 400.0f;
+    public float speed = 1000.0f;
     public float tilt = 1.0f;
 
     // Start is called before the first frame update
@@ -19,6 +23,8 @@ public class Player : MonoBehaviour
     {
         MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         playerModel = GameObject.Find("craft_speederA");
+        projectile = Resources.Load<GameObject>("Projectile");
+        projectileSpawnPosition = GameObject.Find("Projectile Spawn Position").transform;
 
         SetBoundary();
     }
@@ -28,11 +34,13 @@ public class Player : MonoBehaviour
     {
         position = transform.position;
 
-        //PlayerMovement();
-
         //Boundary();
 
+        //PlayerMovement();
+
         transform.position = position;
+
+        Shoot();
     }
 
     void FixedUpdate()
@@ -53,6 +61,33 @@ public class Player : MonoBehaviour
         //InitialisePerspectiveBoundary();
     }
 
+    private void SetBoundary()
+    {
+        boundary = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+        objectWidth = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.x;
+        objectHeight = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.y;
+    }
+
+    //private void Boundary()
+    //{
+    //    if (position.x > GameManager.instance.xBoundary)
+    //    {
+    //        position.x = GameManager.instance.xBoundary;
+    //    }
+    //    else if (position.x < -GameManager.instance.xBoundary)
+    //    {
+    //        position.x = -GameManager.instance.xBoundary;
+    //    }
+    //    if (position.y > GameManager.instance.yBoundary)
+    //    {
+    //        position.y = GameManager.instance.yBoundary;
+    //    }
+    //    else if (position.y < -GameManager.instance.yBoundary)
+    //    {
+    //        position.y = -GameManager.instance.yBoundary;
+    //    }
+    //}
+
     private void PlayerMovement()
     {
         if (Input.GetKey("w"))
@@ -70,6 +105,15 @@ public class Player : MonoBehaviour
         if (Input.GetKey("d"))
         {
             position.x += speed * Time.deltaTime;
+        }
+    }
+
+    private void Shoot()
+    {
+        if (Input.GetKey("space") && Time.time > nextFire)
+        {
+            Instantiate(projectile, projectileSpawnPosition.position, transform.rotation);
+            nextFire = Time.time + fireRate;
         }
     }
 
@@ -102,33 +146,6 @@ public class Player : MonoBehaviour
     {
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * tilt * -1);
     }
-
-    private void SetBoundary()
-    {
-        boundary = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        objectWidth = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.x;
-        objectHeight = playerModel.transform.GetComponent<MeshRenderer>().bounds.extents.y;
-    }
-
-    //private void Boundary()
-    //{
-    //    if (position.x > GameManager.instance.xBoundary)
-    //    {
-    //        position.x = GameManager.instance.xBoundary;
-    //    }
-    //    else if (position.x < -GameManager.instance.xBoundary)
-    //    {
-    //        position.x = -GameManager.instance.xBoundary;
-    //    }
-    //    if (position.y > GameManager.instance.yBoundary)
-    //    {
-    //        position.y = GameManager.instance.yBoundary;
-    //    }
-    //    else if (position.y < -GameManager.instance.yBoundary)
-    //    {
-    //        position.y = -GameManager.instance.yBoundary;
-    //    }
-    //}
 
     private void InitialiseOrthographicBoundary()
     {
