@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+    // Update is called once per frame
     void Update()
     {
         Destroy(this.gameObject, lifetime);

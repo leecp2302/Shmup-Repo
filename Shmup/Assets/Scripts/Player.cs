@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private AudioManager audioManager;
     private Vector2 boundary;
     public float fireRate = 0.1f;
     private Camera MainCamera;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         playerModel = GameObject.Find("craft_speederA");
         projectile = Resources.Load<GameObject>("Projectile");
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
 
         //Boundary();
 
-        //PlayerMovement();
+        //Movement();
 
         transform.position = position;
 
@@ -56,9 +58,9 @@ public class Player : MonoBehaviour
 
     void LateUpdate()
     {
-        InitialiseOrthographicBoundary();
+        OrthographicBoundary();
 
-        //InitialisePerspectiveBoundary();
+        //PerspectiveBoundary();
     }
 
     private void SetBoundary()
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour
     //    }
     //}
 
-    private void PlayerMovement()
+    private void Movement()
     {
         if (Input.GetKey("w"))
         {
@@ -114,6 +116,7 @@ public class Player : MonoBehaviour
         {
             Instantiate(projectile, projectileSpawnPosition.position, transform.rotation);
             nextFire = Time.time + fireRate;
+            audioManager.LaserAudio();
         }
     }
 
@@ -147,7 +150,7 @@ public class Player : MonoBehaviour
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * tilt * -1);
     }
 
-    private void InitialiseOrthographicBoundary()
+    private void OrthographicBoundary()
     {
         Vector3 viewPosition = transform.position;
         viewPosition.x = Mathf.Clamp(viewPosition.x, boundary.x * -1 + objectWidth, boundary.x - objectWidth);
@@ -155,7 +158,7 @@ public class Player : MonoBehaviour
         transform.position = viewPosition;
     }
 
-    private void InitialisePerspectiveBoundary()
+    private void PerspectiveBoundary()
     {
         Vector3 viewPosition = transform.position;
         viewPosition.x = Mathf.Clamp(viewPosition.x, boundary.x + objectWidth, boundary.x * -1 - objectWidth);
