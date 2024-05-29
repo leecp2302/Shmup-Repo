@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5152821786785270485}
   - component: {fileID: 6785875637210226549}
-  - component: {fileID: 6076733291193420987}
-  - component: {fileID: 5254909922151355954}
+  - component: {fileID: 9012771933764376003}
+  - component: {fileID: 4575005395358342172}
   - component: {fileID: 1944432743893471505}
   m_Layer: 0
   m_Name: Projectile
@@ -148,7 +148,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!65 &6076733291193420987
+--- !u!65 &9012771933764376003
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,7 +169,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5254909922151355954
+--- !u!54 &4575005395358342172
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,4 +208,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9e3a31c10aa43d6bae7bd5f83d61c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 1
   speed: 2000

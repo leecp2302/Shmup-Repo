@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private AudioManager audioManager;
     public float lifetime = 1.0f;
     private Rigidbody rigidBody;
     public float speed = 2000.0f;
@@ -11,6 +12,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -37,6 +39,15 @@ public class Projectile : MonoBehaviour
         else if (gameObject.tag == "Right")
         {
             rigidBody.velocity = transform.right * speed * Time.fixedDeltaTime;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            Destroy(this.gameObject);
+            audioManager.ImpactAudio();
         }
     }
 }

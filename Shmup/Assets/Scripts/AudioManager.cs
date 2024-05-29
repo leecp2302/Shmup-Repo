@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip[] playerAudioClips = new AudioClip [1];
-    private AudioSource playerAudioSource;
+    private AudioClip[] playerAudioClips = new AudioClip[1];
+    public AudioSource playerAudioSource;
+    private AudioClip[] projectileAudioClips = new AudioClip[1];
+    public AudioSource projectileAudioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         playerAudioClips[0] = Resources.Load<AudioClip>("laserLarge_000");
-        playerAudioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+        projectileAudioClips[0] = Resources.Load<AudioClip>("impactMetal_003");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ImpactAudio()
+    {
+        projectileAudioSource.clip = projectileAudioClips[0];
+        projectileAudioSource.Play();
     }
 
     public void LaserAudio()
