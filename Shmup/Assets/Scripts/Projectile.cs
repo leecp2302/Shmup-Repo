@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private AudioManager audioManager;
+    public float damage = 10.0f;
     public float lifetime = 1.0f;
     private Rigidbody rigidBody;
     public float speed = 2000.0f;
@@ -26,7 +27,7 @@ public class Projectile : MonoBehaviour
     {
         if (this.gameObject.tag == "Up")
         {
-            rigidBody.velocity = transform.up * speed * Time.fixedDeltaTime;
+            rigidBody.velocity = transform.forward * speed * Time.fixedDeltaTime;
         }
         else if (this.gameObject.tag == "Left")
         {
@@ -46,6 +47,7 @@ public class Projectile : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
+            other.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(this.gameObject);
             audioManager.ImpactAudio();
         }
