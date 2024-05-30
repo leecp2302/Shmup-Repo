@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
-        GetComponentInParent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
+        GetComponent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
     }
 
     private void PhysicsMovement()
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
-        GetComponentInParent<Rigidbody>().velocity = movement * speed * Time.fixedDeltaTime;
+        GetComponent<Rigidbody>().velocity = movement * speed * Time.fixedDeltaTime;
     }
 
     private void TankControls()
@@ -142,12 +142,12 @@ public class Player : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         transform.Rotate(Vector3.forward * moveHorizontal * rotateSpeed * Time.fixedDeltaTime * -1);
-        GetComponentInParent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
+        GetComponent<Rigidbody>().velocity = moveVertical * transform.up * speed * Time.fixedDeltaTime;
     }
 
     private void Tilt()
     {
-        GetComponentInParent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponentInParent<Rigidbody>().velocity.x * tilt * -1);
+        GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * tilt * -1);
     }
 
     private void OrthographicBoundary()

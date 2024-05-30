@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     {
         if (this.gameObject.tag == "Up")
         {
-            rigidBody.velocity = transform.forward * speed * Time.fixedDeltaTime;
+            rigidBody.velocity = transform.up * speed * Time.fixedDeltaTime;
         }
         else if (this.gameObject.tag == "Left")
         {
