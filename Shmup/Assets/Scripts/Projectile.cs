@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private AudioManager audioManager;
-    public float damage = 10.0f;
+    public float damage = 50.0f;
     public float lifetime = 1.0f;
     private Rigidbody rigidBody;
     public float speed = 2000.0f;

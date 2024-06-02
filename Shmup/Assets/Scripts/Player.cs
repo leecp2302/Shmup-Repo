@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private AudioManager audioManager;
     private Vector2 boundary;
-    public float fireRate = 0.1f;
+    public float fireRate = 0.25f;
     private Camera MainCamera;
     private float nextFire;
     private float objectHeight;
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private GameObject projectile;
     private Transform projectileSpawnPosition;
     public float rotateSpeed = 350.0f;
-    public float speed = 1000.0f;
+    public float speed = 400.0f;
     public float tilt = 1.0f;
 
     // Start is called before the first frame update

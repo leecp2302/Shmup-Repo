@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject damage;
+    public GameObject damage;
     public float health = 100.0f;
+    private Rigidbody rigidBody;
+    public float speed = 200.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        damage = GameObject.Find("Damage");
-        damage.SetActive(false);
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rigidBody.velocity = -transform.up * speed * Time.fixedDeltaTime;
     }
 
     public void TakeDamage(float damage)
