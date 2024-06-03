@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    private AudioClip[] enemyAudioClips = new AudioClip[1];
+    public AudioSource enemyAudioSource;
     private AudioClip[] playerAudioClips = new AudioClip[1];
     public AudioSource playerAudioSource;
     private AudioClip[] projectileAudioClips = new AudioClip[1];
@@ -12,6 +14,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyAudioClips[0] = Resources.Load<AudioClip>("impactMetal_003");
         playerAudioClips[0] = Resources.Load<AudioClip>("laserLarge_000");
         projectileAudioClips[0] = Resources.Load<AudioClip>("impactMetal_003");
     }
@@ -22,7 +25,13 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void ImpactAudio()
+    public void EnemyImpactAudio()
+    {
+        enemyAudioSource.clip = enemyAudioClips[0];
+        enemyAudioSource.Play();
+    }
+
+    public void ProjectileImpactAudio()
     {
         projectileAudioSource.clip = projectileAudioClips[0];
         projectileAudioSource.Play();

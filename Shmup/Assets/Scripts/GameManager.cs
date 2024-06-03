@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enemy = Resources.Load<GameObject>("Enemy");
+
         StartCoroutine(SpawnWave());
     }
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(enemyTimer);
             for (int i = 0; i < enemyCount; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValue.x, spawnValue.x), spawnValue.y, spawnValue.z);

@@ -6,7 +6,9 @@ public class Player : MonoBehaviour
 {
     private AudioManager audioManager;
     private Vector2 boundary;
+    public GameObject damageModel;
     public float fireRate = 0.25f;
+    public float health = 100.0f;
     private Camera MainCamera;
     private float nextFire;
     private float objectHeight;
@@ -132,9 +134,9 @@ public class Player : MonoBehaviour
     private void PhysicsMovement()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
-        GetComponent<Rigidbody>().velocity = movement * speed * Time.fixedDeltaTime;
+        //float moveVertical = Input.GetAxis("Vertical");
+        //Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
+        GetComponent<Rigidbody>().velocity = moveHorizontal * transform.right * speed * Time.fixedDeltaTime;
     }
 
     private void TankControls()
@@ -164,5 +166,22 @@ public class Player : MonoBehaviour
         viewPosition.x = Mathf.Clamp(viewPosition.x, boundary.x + objectWidth, boundary.x * -1 - objectWidth);
         viewPosition.y = Mathf.Clamp(viewPosition.y, boundary.y + objectHeight, boundary.y * -1 - objectHeight);
         transform.position = viewPosition;
+    }
+
+    private IEnumerator Damage()
+    {
+        damageModel.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        damageModel.SetActive(false);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        StartCoroutine(Damage());
+        if (health == 0.0f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
