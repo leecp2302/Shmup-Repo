@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         playerModel = GameObject.Find("craft_speederA");
-        projectile = Resources.Load<GameObject>("Projectile");
+        projectile = Resources.Load<GameObject>("Prefabs/Projectile");
         projectileSpawnPosition = GameObject.Find("Projectile Spawn Position").transform;
 
         SetBoundary();

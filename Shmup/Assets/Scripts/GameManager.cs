@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy = Resources.Load<GameObject>("Enemy");
+        enemy = Resources.Load<GameObject>("Prefabs/Enemy");
 
         StartCoroutine(SpawnWave());
     }
